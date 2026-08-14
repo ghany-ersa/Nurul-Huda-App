@@ -5,6 +5,7 @@ namespace App\Filament\Resources\DonationPrograms;
 use App\Filament\Resources\DonationPrograms\Pages\CreateDonationProgram;
 use App\Filament\Resources\DonationPrograms\Pages\EditDonationProgram;
 use App\Filament\Resources\DonationPrograms\Pages\ListDonationPrograms;
+use App\Filament\Resources\DonationPrograms\RelationManagers\PhotosRelationManager;
 use App\Filament\Resources\DonationPrograms\Schemas\DonationProgramForm;
 use App\Filament\Resources\DonationPrograms\Tables\DonationProgramsTable;
 use App\Models\DonationProgram;
@@ -46,7 +47,7 @@ class DonationProgramResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PhotosRelationManager::class,
         ];
     }
 

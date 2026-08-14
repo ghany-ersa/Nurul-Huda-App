@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 
 #[Fillable(['name', 'slug', 'description', 'target_amount', 'collected_amount', 'cover_photo', 'starts_at', 'ends_at'])]
@@ -56,5 +57,15 @@ class DonationProgram extends Model
     public function transactions(): HasMany
     {
         return $this->hasMany(DonationTransaction::class);
+    }
+
+    public function photos(): MorphMany
+    {
+        return $this->morphMany(DocumentationPhoto::class, 'photoable')->orderBy('order');
+    }
+
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
     }
 }

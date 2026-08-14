@@ -5,6 +5,7 @@ namespace App\Filament\Resources\Facilities;
 use App\Filament\Resources\Facilities\Pages\CreateFacility;
 use App\Filament\Resources\Facilities\Pages\EditFacility;
 use App\Filament\Resources\Facilities\Pages\ListFacilities;
+use App\Filament\Resources\Facilities\RelationManagers\PhotosRelationManager;
 use App\Filament\Resources\Facilities\Schemas\FacilityForm;
 use App\Filament\Resources\Facilities\Tables\FacilitiesTable;
 use App\Models\Facility;
@@ -46,7 +47,7 @@ class FacilityResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            PhotosRelationManager::class,
         ];
     }
 

@@ -1,0 +1,26 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\DocumentationPhoto;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+/**
+ * @extends Factory<DocumentationPhoto>
+ */
+class DocumentationPhotoFactory extends Factory
+{
+    /**
+     * Define the model's default state.
+     *
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        return [
+            'photo' => 'https://picsum.photos/seed/doc-'.fake()->unique()->numberBetween(1, 100000).'/800/600',
+            'caption' => fake()->sentence(4),
+            'order' => fake()->numberBetween(0, 20),
+        ];
+    }
+}
