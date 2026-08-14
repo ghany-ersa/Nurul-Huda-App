@@ -31,7 +31,7 @@ class AttendanceForm
                     ->live(),
                 TextInput::make('rfid_code')
                     ->disabled()
-                    ->placeholder('Will be auto-filled when Jamaah is selected'),
+                    ->placeholder('Akan terisi otomatis ketika Jamaah dipilih'),
                 DateTimePicker::make('scanned_at')
                     ->required(),
                 Select::make('prayer_time')

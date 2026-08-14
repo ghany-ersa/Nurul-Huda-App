@@ -2,12 +2,16 @@
 
 namespace App\Filament\Resources\DonationPrograms\Schemas;
 
+use App\Models\DonationProgram;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
+use Filament\Schemas\Components\Utilities\Get;
+use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Filament\Support\RawJs;
+use Illuminate\Support\Str;
 
 class DonationProgramForm
 {
@@ -18,10 +22,21 @@ class DonationProgramForm
             ->components([
                 TextInput::make('name')
                     ->label('Nama')
-                    ->required(),
+                    ->required()
+                    ->live(onBlur: true)
+                    ->afterStateUpdated(function (Get $get, Set $set, ?string $old, ?string $state) {
+                        if (($get('slug') ?? '') !== Str::slug($old)) {
+                            return;
+                        }
+
+                        $set('slug', Str::slug($state));
+                    }),
                 TextInput::make('slug')
                     ->label('Slug')
-                    ->required(),
+                    ->required()
+                    ->alphaDash()
+                    ->unique(DonationProgram::class, 'slug', ignoreRecord: true)
+                    ->dehydrateStateUsing(fn (?string $state) => Str::slug($state)),
                 RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),

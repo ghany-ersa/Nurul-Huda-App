@@ -31,7 +31,7 @@ class WinnerHistoryForm
                     ->live(),
                 TextInput::make('rfid_code')
                     ->disabled()
-                    ->placeholder('Will be auto-filled when Jamaah is selected'),
+                    ->placeholder('Akan terisi otomatis ketika Jamaah dipilih'),
                 TextInput::make('prize')
                     ->required(),
                 DateTimePicker::make('drawn_at')

@@ -17,13 +17,16 @@ class UserForm
             ->columns(1)
             ->components([
                 TextInput::make('name')
+                    ->label('Nama')
                     ->required()
                     ->maxLength(255),
                 TextInput::make('email')
+                    ->label('Email')
                     ->email()
                     ->required()
                     ->unique(User::class, 'email', ignoreRecord: true),
                 TextInput::make('password')
+                    ->label('Kata Sandi')
                     ->password()
                     ->required(fn (Page $livewire): bool => $livewire instanceof CreateUser)
                     ->minLength(8)
@@ -31,7 +34,7 @@ class UserForm
                     ->dehydrateStateUsing(fn (?string $state) => filled($state) ? $state : null)
                     ->disableAutocomplete(),
                 Checkbox::make('is_admin')
-                    ->label('Admin user'),
+                    ->label('Pengguna Admin'),
             ]);
     }
 }
