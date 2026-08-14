@@ -22,7 +22,7 @@
             @if ($kajianRutin->isEmpty())
                 <p class="mt-4 text-sm text-slate-500">Belum ada jadwal kajian rutin.</p>
             @else
-                <div class="mt-4 space-y-3">
+                <div class="mt-4 space-y-3" data-photo-gallery>
                     @foreach ($kajianRutin as $kajian)
                         <a href="{{ route('events.show', $kajian) }}"
                             class="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
@@ -49,7 +49,7 @@
                             </div>
                             @if ($kajian->poster)
                                 <img src="{{ $kajian->poster_url }}" alt="{{ $kajian->title }}"
-                                    class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg" loading="lazy" />
+                                    class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg cursor-zoom-in" loading="lazy" />
                             @endif
                         </a>
                     @endforeach
@@ -64,7 +64,7 @@
             @if ($eventKhusus->isEmpty())
                 <p class="mt-4 text-sm text-slate-500">Belum ada event khusus yang dijadwalkan.</p>
             @else
-                <div class="mt-4 space-y-3">
+                <div class="mt-4 space-y-3" data-photo-gallery>
                     @foreach ($eventKhusus as $event)
                         <a href="{{ route('events.show', $event) }}"
                             class="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
@@ -88,7 +88,7 @@
                             </div>
                             @if ($event->poster)
                                 <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
-                                    class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg" loading="lazy" />
+                                    class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg cursor-zoom-in" loading="lazy" />
                             @endif
                         </a>
                     @endforeach

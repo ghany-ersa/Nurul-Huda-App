@@ -38,9 +38,9 @@
         </a>
 
         @if ($donationProgram->cover_photo)
-            <div class="mt-5 aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100">
+            <div class="mt-5 aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100" data-photo-gallery>
                 <img src="{{ $donationProgram->cover_photo_url }}" alt="{{ $donationProgram->name }}"
-                     class="w-full h-full object-cover" />
+                     class="w-full h-full object-cover cursor-zoom-in" />
             </div>
         @endif
 

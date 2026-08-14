@@ -56,13 +56,13 @@
                 <h2 class="mt-2 text-2xl sm:text-3xl font-bold text-[#2c368B]">Fasilitas Masjid</h2>
                 <p class="mt-2 text-slate-600">Sarana dan prasarana yang tersedia untuk jamaah.</p>
 
-                <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-photo-gallery>
                     @foreach ($facilities as $facility)
                         <article class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-slate-100 flex flex-col">
                             @if ($facility->photo)
                                 <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
                                     <img src="{{ $facility->photo_url }}" alt="{{ $facility->name }}" loading="lazy"
-                                         class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
+                                         class="w-full h-full object-cover object-center hover:scale-105 transition duration-500 cursor-zoom-in" />
                                 </div>
                             @endif
                             <div class="p-5 flex-1 flex flex-col">
@@ -110,7 +110,7 @@
                 </a>
             </div>
 
-            <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-photo-gallery>
                 @foreach ($activeDonationPrograms as $program)
                     @php
                         $percent = $program->target_amount > 0
@@ -122,7 +122,7 @@
                         @if ($program->cover_photo)
                             <div class="aspect-[16/9] bg-slate-100 overflow-hidden">
                                 <img src="{{ $program->cover_photo_url }}" alt="{{ $program->name }}" loading="lazy"
-                                     class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
+                                     class="w-full h-full object-cover object-center hover:scale-105 transition duration-500 cursor-zoom-in" />
                             </div>
                         @endif
                         <div class="p-5 flex-1 flex flex-col">
@@ -156,7 +156,7 @@
                     </a>
                 </div>
 
-                <div class="mt-8 space-y-3">
+                <div class="mt-8 space-y-3" data-photo-gallery>
                     @foreach ($upcomingEvents as $event)
                         <a href="{{ route('events.show', $event) }}"
                            class="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
@@ -175,7 +175,7 @@
                             </div>
                             @if ($event->poster)
                                 <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
-                                     class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg" loading="lazy" />
+                                     class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg cursor-zoom-in" loading="lazy" />
                             @endif
                         </a>
                     @endforeach

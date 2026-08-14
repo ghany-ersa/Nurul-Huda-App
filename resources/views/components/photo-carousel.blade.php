@@ -19,7 +19,7 @@
          @mouseenter="stopAutoplay()" @mouseleave="startAutoplay()"
          {{ $attributes->class(['relative']) }}>
 
-        <div class="relative w-full {{ $aspect }} {{ $rounded }} bg-slate-100 overflow-hidden">
+        <div class="relative w-full {{ $aspect }} {{ $rounded }} bg-slate-100 overflow-hidden" data-photo-gallery>
             @foreach ($photos as $index => $photo)
                 <div x-show="current === {{ $index }}"
                      x-transition:enter="transition ease-out duration-500"
@@ -27,9 +27,9 @@
                      x-transition:enter-end="opacity-100"
                      class="absolute inset-0">
                     <img src="{{ $photo->photo_url }}" alt="{{ $photo->caption ?? $altFallback }}"
-                         loading="lazy" class="w-full h-full object-cover" />
+                         loading="lazy" class="w-full h-full object-cover cursor-zoom-in" />
                     @if ($photo->caption)
-                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
+                        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6 pointer-events-none">
                             <p class="text-white text-sm sm:text-base font-medium">{{ $photo->caption }}</p>
                         </div>
                     @endif
