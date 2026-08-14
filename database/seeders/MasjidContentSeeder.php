@@ -25,10 +25,10 @@ class MasjidContentSeeder extends Seeder
     {
         $this->seedFacilities();
         $this->seedCommitteeMembers();
-        $this->seedDonationPrograms();
-        $this->seedFinancialReports();
-        $this->seedEvents();
-        $this->seedVenueInquiries();
+        // $this->seedDonationPrograms();
+        // $this->seedFinancialReports();
+        // $this->seedEvents();
+        // $this->seedVenueInquiries();
         $this->seedGalleryPhotos();
     }
 
@@ -172,9 +172,10 @@ class MasjidContentSeeder extends Seeder
     private function seedEvents(): void
     {
         $kajianRutin = [
-            ['title' => 'Kajian Tafsir Al-Quran', 'speaker' => 'Ust. Abdullah Hakim', 'day_of_week' => 1, 'time' => '19:30'],
-            ['title' => 'Kajian Fiqih Sehari-hari', 'speaker' => 'Ust. Muhammad Ridwan', 'day_of_week' => 3, 'time' => '19:30'],
-            ['title' => 'Kajian Subuh', 'speaker' => 'Ust. Umar Syarif', 'day_of_week' => 6, 'time' => '05:00'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Hadi Santoso', 'day_of_week' => 5, 'description' => '<p>Materi Aqidah Tauhid Kitab Ummul Barahin, Karya Imam Sanusi<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Tyas Hidayatulloh, M.Pd', 'day_of_week' => 5, 'description' => '<p>Materi Tafsir Kitab Al Azhar, Karya Buya Hamka<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Affan Kamal Mubarok, B.S., M.A.', 'day_of_week' => 5, 'description' => '<p>Materi Shirah Kitab Asy-Syamail Al-Muhammadiyah, Karya Imam Tirmidzi<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Nurhadi Amin, S.Ag', 'day_of_week' => 5, 'description' => '<p>Materi Fiqh Kitab Bidayatul Mujtahid, Karya Ibnu Rusyd<br>Diawali salat Maghrib berjamaah</p>'],
         ];
 
         foreach ($kajianRutin as $index => $kajian) {
@@ -183,34 +184,10 @@ class MasjidContentSeeder extends Seeder
                 'type' => 'kajian',
                 'speaker' => $kajian['speaker'],
                 'day_of_week' => $kajian['day_of_week'],
-                'time' => $kajian['time'],
-                'event_date' => null,
-                'poster' => "https://picsum.photos/seed/kajian-{$index}/600/800",
-            ]);
-
-            if ($index === 0) {
-                $this->attachDocumentationPhotos($event, 'kajian-dokumentasi', 4);
-            }
-        }
-
-        $eventKhusus = [
-            ['title' => 'Peringatan Maulid Nabi', 'event_date' => now()->addWeeks(2)],
-            ['title' => 'Buka Puasa Bersama', 'event_date' => now()->addMonth()],
-        ];
-
-        foreach ($eventKhusus as $index => $event) {
-            $eventModel = Event::factory()->create([
-                'title' => $event['title'],
-                'type' => 'event',
-                'day_of_week' => null,
                 'time' => null,
-                'event_date' => $event['event_date'],
-                'poster' => "https://picsum.photos/seed/event-{$index}/600/800",
+                'event_date' => null,
+                'description' => $kajian['description'],
             ]);
-
-            if ($index === 0) {
-                $this->attachDocumentationPhotos($eventModel, 'event-dokumentasi', 5);
-            }
         }
     }
 
