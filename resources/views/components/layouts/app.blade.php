@@ -87,11 +87,20 @@
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @stack('styles')
+    @livewireStyles
 </head>
 
-<body class="antialiased bg-white text-slate-900">
+<body class="antialiased bg-white text-slate-900 pb-16 lg:pb-0">
+    <x-layouts.partials.navbar />
+
     {{ $slot }}
+
+    <x-layouts.partials.footer />
+
+    <x-layouts.partials.bottom-nav />
+
     @stack('scripts')
+    @livewireScripts
 </body>
 
 </html>
