@@ -7,6 +7,7 @@ use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class DonationTransactionForm
 {
@@ -22,6 +23,9 @@ class DonationTransactionForm
                     ->label('Nama Donatur'),
                 TextInput::make('amount')
                     ->label('Nominal')
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, ".")'))
+                    ->stripCharacters('.')
                     ->required()
                     ->numeric(),
                 DatePicker::make('donated_at')

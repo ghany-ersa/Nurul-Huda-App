@@ -19,12 +19,9 @@ return new class extends Migration
             $table->unsignedBigInteger('target_amount');
             $table->unsignedBigInteger('collected_amount')->default(0);
             $table->string('cover_photo')->nullable();
-            $table->string('status')->default('active');
             $table->date('starts_at')->nullable();
             $table->date('ends_at')->nullable();
             $table->timestamps();
-
-            $table->index('status');
         });
     }
 

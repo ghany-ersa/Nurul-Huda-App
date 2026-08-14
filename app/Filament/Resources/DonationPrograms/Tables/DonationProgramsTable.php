@@ -25,15 +25,29 @@ class DonationProgramsTable
                     ->searchable(),
                 TextColumn::make('target_amount')
                     ->label('Target Nominal')
-                    ->numeric()
+                    ->money('IDR', locale: 'id', decimalPlaces: 0)
                     ->sortable(),
                 TextColumn::make('collected_amount')
                     ->label('Nominal Terkumpul')
-                    ->numeric()
+                    ->money('IDR', locale: 'id', decimalPlaces: 0)
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
-                    ->searchable(),
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'upcoming' => 'Akan Datang',
+                        'active' => 'Aktif',
+                        'completed' => 'Selesai',
+                        'expired' => 'Berakhir',
+                        default => $state,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'upcoming' => 'gray',
+                        'active' => 'success',
+                        'completed' => 'info',
+                        'expired' => 'danger',
+                        default => 'gray',
+                    }),
                 TextColumn::make('starts_at')
                     ->label('Tanggal Mulai')
                     ->date()

@@ -22,7 +22,7 @@ class DonationTransactionsTable
                     ->searchable(),
                 TextColumn::make('amount')
                     ->label('Nominal')
-                    ->numeric()
+                    ->money('IDR', locale: 'id', decimalPlaces: 0)
                     ->sortable(),
                 TextColumn::make('donated_at')
                     ->label('Tanggal Donasi')

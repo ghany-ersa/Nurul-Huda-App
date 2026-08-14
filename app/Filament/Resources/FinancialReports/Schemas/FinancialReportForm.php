@@ -2,9 +2,10 @@
 
 namespace App\Filament\Resources\FinancialReports\Schemas;
 
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class FinancialReportForm
 {
@@ -28,9 +29,12 @@ class FinancialReportForm
                     ->required(),
                 TextInput::make('amount')
                     ->label('Nominal')
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, ".")'))
+                    ->stripCharacters('.')
                     ->required()
                     ->numeric(),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->label('Keterangan')
                     ->columnSpanFull(),
             ]);

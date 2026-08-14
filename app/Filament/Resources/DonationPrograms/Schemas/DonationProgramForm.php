@@ -4,9 +4,10 @@ namespace App\Filament\Resources\DonationPrograms\Schemas;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Filament\Support\RawJs;
 
 class DonationProgramForm
 {
@@ -20,15 +21,21 @@ class DonationProgramForm
                 TextInput::make('slug')
                     ->label('Slug')
                     ->required(),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),
                 TextInput::make('target_amount')
                     ->label('Target Nominal')
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, ".")'))
+                    ->stripCharacters('.')
                     ->required()
                     ->numeric(),
                 TextInput::make('collected_amount')
                     ->label('Nominal Terkumpul')
+                    ->prefix('Rp')
+                    ->mask(RawJs::make('$money($input, ".")'))
+                    ->stripCharacters('.')
                     ->required()
                     ->numeric()
                     ->default(0),
@@ -37,10 +44,6 @@ class DonationProgramForm
                     ->image()
                     ->imageEditor()
                     ->directory('donation-programs'),
-                TextInput::make('status')
-                    ->label('Status')
-                    ->required()
-                    ->default('active'),
                 DatePicker::make('starts_at')
                     ->label('Tanggal Mulai'),
                 DatePicker::make('ends_at')

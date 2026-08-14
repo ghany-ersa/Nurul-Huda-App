@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Events\Schemas;
 
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\TimePicker;
 use Filament\Schemas\Schema;
@@ -35,7 +35,7 @@ class EventForm
                     ->image()
                     ->imageEditor()
                     ->directory('events'),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),
             ]);

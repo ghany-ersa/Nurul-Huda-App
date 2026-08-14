@@ -3,7 +3,7 @@
 namespace App\Filament\Resources\Facilities\Schemas;
 
 use Filament\Forms\Components\FileUpload;
-use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
@@ -16,7 +16,7 @@ class FacilityForm
                 TextInput::make('name')
                     ->label('Nama')
                     ->required(),
-                Textarea::make('description')
+                RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),
                 FileUpload::make('photo')

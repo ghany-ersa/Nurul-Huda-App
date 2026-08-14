@@ -30,7 +30,7 @@ class FinancialReportsTable
                     ->searchable(),
                 TextColumn::make('amount')
                     ->label('Nominal')
-                    ->numeric()
+                    ->money('IDR', locale: 'id', decimalPlaces: 0)
                     ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')

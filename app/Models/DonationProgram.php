@@ -3,12 +3,16 @@
 namespace App\Models;
 
 use Database\Factories\DonationProgramFactory;
+use Illuminate\Database\Eloquent\Attributes\Appends;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Support\Carbon;
 
-#[Fillable(['name', 'slug', 'description', 'target_amount', 'collected_amount', 'cover_photo', 'status', 'starts_at', 'ends_at'])]
+#[Fillable(['name', 'slug', 'description', 'target_amount', 'collected_amount', 'cover_photo', 'starts_at', 'ends_at'])]
+#[Appends(['status'])]
 class DonationProgram extends Model
 {
     /** @use HasFactory<DonationProgramFactory> */
@@ -22,6 +26,31 @@ class DonationProgram extends Model
             'starts_at' => 'date',
             'ends_at' => 'date',
         ];
+    }
+
+    protected function status(): Attribute
+    {
+        return Attribute::make(
+            get: function (mixed $value, array $attributes): string {
+                $hasStarted = $attributes['starts_at'] && Carbon::parse($attributes['starts_at'])->isPast();
+                $isFulfilled = $attributes['collected_amount'] >= $attributes['target_amount'];
+                $hasEnded = $attributes['ends_at'] && Carbon::parse($attributes['ends_at'])->isPast();
+
+                if (! $hasStarted) {
+                    return 'upcoming';
+                }
+
+                if ($isFulfilled) {
+                    return 'completed';
+                }
+
+                if ($hasEnded) {
+                    return 'expired';
+                }
+
+                return 'active';
+            },
+        );
     }
 
     public function transactions(): HasMany

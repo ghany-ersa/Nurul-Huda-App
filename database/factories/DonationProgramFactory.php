@@ -24,7 +24,6 @@ class DonationProgramFactory extends Factory
             'target_amount' => fake()->numberBetween(5_000_000, 100_000_000),
             'collected_amount' => 0,
             'cover_photo' => null,
-            'status' => fake()->randomElement(['active', 'completed']),
             'starts_at' => fake()->dateTimeBetween('-1 month', 'now')->format('Y-m-d'),
             'ends_at' => fake()->dateTimeBetween('+1 month', '+6 months')->format('Y-m-d'),
         ];
