@@ -4,6 +4,9 @@ use App\Models\DocumentationPhoto;
 use App\Models\DonationProgram;
 use App\Models\Event;
 use App\Models\FinancialReport;
+use App\Models\VenueInquiry;
+
+use function Pest\Laravel\assertDatabaseHas;
 
 test('homepage renders successfully', function () {
     $this->get(route('home'))->assertOk();
@@ -89,4 +92,30 @@ test('event detail page hides photo carousel when no photos', function () {
 
 test('venue page renders successfully', function () {
     $this->get(route('venue.index'))->assertOk();
+});
+
+test('venue inquiry submission is stored and redirects to whatsapp', function () {
+    $response = $this->post(route('venue.store'), [
+        'name' => 'Budi Santoso',
+        'phone' => '081234567890',
+        'planned_date' => now()->addMonth()->format('Y-m-d'),
+        'note' => 'Perkiraan 100 tamu.',
+    ]);
+
+    $response->assertRedirect();
+    expect($response->headers->get('Location'))->toContain('wa.me/6285335104803');
+
+    assertDatabaseHas(VenueInquiry::class, [
+        'name' => 'Budi Santoso',
+        'phone' => '081234567890',
+        'note' => 'Perkiraan 100 tamu.',
+        'status' => 'pending',
+    ]);
+});
+
+test('venue inquiry submission requires name, phone, and planned date', function () {
+    $response = $this->post(route('venue.store'), []);
+
+    $response->assertSessionHasErrors(['name', 'phone', 'planned_date']);
+    $this->assertDatabaseCount(VenueInquiry::class, 0);
 });

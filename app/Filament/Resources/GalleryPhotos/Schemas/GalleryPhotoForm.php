@@ -11,6 +11,7 @@ class GalleryPhotoForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 FileUpload::make('photo')
                     ->label('Foto')

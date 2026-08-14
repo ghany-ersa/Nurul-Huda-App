@@ -1,5 +1,4 @@
 @php
-    $waNumber = '6285335104803';
     $heroImage = $venue?->photo ?? 'https://picsum.photos/seed/aula-serbaguna-hero/1400/900';
 
     $fasilitas = [
@@ -97,44 +96,48 @@
         <div id="ajukan" class="mt-10 scroll-mt-6">
             <h2 class="text-lg font-bold text-[#2c368B]">Ajukan Rencana Akad</h2>
             <p class="mt-1 text-sm text-slate-500">
-                Isi form berikut, Anda akan diarahkan ke WhatsApp admin untuk konfirmasi lebih lanjut.
+                Isi form berikut, pengajuan Anda akan tercatat dan Anda akan diarahkan ke WhatsApp admin untuk konfirmasi lebih lanjut.
             </p>
 
-            <form
-                x-data="{
-                    name: '',
-                    plannedDate: '',
-                    note: '',
-                    get waUrl() {
-                        const tanggal = this.plannedDate
-                            ? new Date(this.plannedDate).toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })
-                            : '-';
-                        let pesan = `Assalamualaikum, saya ${this.name || '-'} ingin mengajukan akad nikah di Aula Serbaguna Masjid Nurul Huda pada tanggal ${tanggal}.`;
-                        if (this.note) {
-                            pesan += ` Catatan: ${this.note}`;
-                        }
-                        return 'https://wa.me/{{ $waNumber }}?text=' + encodeURIComponent(pesan);
-                    }
-                }"
-                @submit.prevent="window.open(waUrl, '_blank')"
-                class="mt-6 bg-white border border-slate-100 rounded-2xl shadow-sm p-5 sm:p-6 space-y-4">
+            <form method="POST" action="{{ route('venue.store') }}"
+                  class="mt-6 bg-white border border-slate-100 rounded-2xl shadow-sm p-5 sm:p-6 space-y-4">
+                @csrf
 
                 <div>
                     <label class="text-xs text-slate-500 uppercase tracking-wide">Nama</label>
-                    <input type="text" x-model="name" required placeholder="Nama calon pengantin"
+                    <input type="text" name="name" value="{{ old('name') }}" required placeholder="Nama calon pengantin"
                            class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1e79cc]/40" />
+                    @error('name')
+                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <div>
+                    <label class="text-xs text-slate-500 uppercase tracking-wide">Nomor Telepon</label>
+                    <input type="tel" name="phone" value="{{ old('phone') }}" required placeholder="08xxxxxxxxxx"
+                           class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1e79cc]/40" />
+                    @error('phone')
+                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-xs text-slate-500 uppercase tracking-wide">Rencana Tanggal Akad</label>
-                    <input type="date" x-model="plannedDate" required
+                    <input type="date" name="planned_date" value="{{ old('planned_date') }}" required
+                           min="{{ now()->format('Y-m-d') }}"
                            class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1e79cc]/40" />
+                    @error('planned_date')
+                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <div>
                     <label class="text-xs text-slate-500 uppercase tracking-wide">Catatan (opsional)</label>
-                    <textarea x-model="note" rows="3" placeholder="Perkiraan jumlah tamu, kebutuhan tambahan, dsb."
-                              class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1e79cc]/40"></textarea>
+                    <textarea name="note" rows="3" placeholder="Perkiraan jumlah tamu, kebutuhan tambahan, dsb."
+                              class="mt-1 w-full border border-slate-200 rounded-xl px-4 py-3 text-slate-900 focus:outline-none focus:ring-2 focus:ring-[#1e79cc]/40">{{ old('note') }}</textarea>
+                    @error('note')
+                        <p class="mt-1 text-xs text-red-600">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit"

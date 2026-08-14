@@ -29,5 +29,6 @@ class DatabaseSeeder extends Seeder
         Jamaah::factory(10)->create();
 
         $this->call(MasjidContentSeeder::class);
+        $this->call(WakafPembangunanTransactionSeeder::class);
     }
 }

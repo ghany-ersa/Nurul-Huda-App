@@ -29,8 +29,7 @@ class DonationProgramsTable
                     ->sortable(),
                 TextColumn::make('collected_amount')
                     ->label('Nominal Terkumpul')
-                    ->money('IDR', locale: 'id', decimalPlaces: 0)
-                    ->sortable(),
+                    ->money('IDR', locale: 'id', decimalPlaces: 0),
                 TextColumn::make('status')
                     ->label('Status')
                     ->badge()

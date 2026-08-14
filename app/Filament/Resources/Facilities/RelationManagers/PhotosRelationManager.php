@@ -24,6 +24,7 @@ class PhotosRelationManager extends RelationManager
     public function form(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 FileUpload::make('photo')
                     ->label('Foto')

@@ -84,7 +84,6 @@ class MasjidContentSeeder extends Seeder
                 'name' => 'Wakaf Pembangunan Masjid',
                 'description' => 'Program wakaf untuk pembangunan dan renovasi fasilitas Masjid Nurul Huda Ambulu, mencakup pemavingan halaman parkir, taman, tempat wudhu, teras masjid, dan payung Nabawi.',
                 'target_amount' => 1_175_600_000,
-                'collected_amount' => 408_532_000,
                 'starts_at' => now()->subMonths(6),
                 'ends_at' => now()->addYear(),
                 'transactions' => 20,
@@ -92,7 +91,6 @@ class MasjidContentSeeder extends Seeder
             [
                 'name' => 'Renovasi Atap Masjid',
                 'target_amount' => 50_000_000,
-                'collected_amount' => 32_500_000,
                 'starts_at' => now()->subWeeks(3),
                 'ends_at' => now()->addMonths(2),
                 'transactions' => 8,
@@ -100,7 +98,6 @@ class MasjidContentSeeder extends Seeder
             [
                 'name' => 'Santunan Anak Yatim',
                 'target_amount' => 20_000_000,
-                'collected_amount' => 20_000_000,
                 'starts_at' => now()->subMonths(2),
                 'ends_at' => now()->addMonth(),
                 'transactions' => 12,
@@ -108,7 +105,6 @@ class MasjidContentSeeder extends Seeder
             [
                 'name' => 'Pembangunan Perpustakaan',
                 'target_amount' => 15_000_000,
-                'collected_amount' => 4_000_000,
                 'starts_at' => now()->subMonth(),
                 'ends_at' => now()->subDays(3),
                 'transactions' => 3,
@@ -116,7 +112,6 @@ class MasjidContentSeeder extends Seeder
             [
                 'name' => 'Wakaf Al-Quran',
                 'target_amount' => 10_000_000,
-                'collected_amount' => 0,
                 'starts_at' => now()->addWeek(),
                 'ends_at' => now()->addMonths(3),
                 'transactions' => 0,
@@ -128,7 +123,6 @@ class MasjidContentSeeder extends Seeder
                 'name' => $program['name'],
                 'slug' => str($program['name'])->slug(),
                 'target_amount' => $program['target_amount'],
-                'collected_amount' => $program['collected_amount'],
                 'cover_photo' => "https://picsum.photos/seed/donation-{$index}/800/450",
                 'starts_at' => $program['starts_at'],
                 'ends_at' => $program['ends_at'],

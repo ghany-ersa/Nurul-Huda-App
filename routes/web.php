@@ -21,6 +21,7 @@ Route::get('/laporan-keuangan', FinancialReportController::class)->name('financi
 Route::get('/kajian-event', [EventController::class, 'index'])->name('events.index');
 Route::get('/kajian-event/{event}', [EventController::class, 'show'])->name('events.show');
 
-Route::get('/akad-venue', VenueController::class)->name('venue.index');
+Route::get('/akad-venue', [VenueController::class, 'index'])->name('venue.index');
+Route::post('/akad-venue', [VenueController::class, 'store'])->name('venue.store');
 
 Route::get('/spinner', MentariPagiSpinner::class)->name('mentari-pagi-spinner');

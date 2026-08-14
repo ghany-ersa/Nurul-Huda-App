@@ -26,7 +26,19 @@ class VenueInquiriesTable
                     ->sortable(),
                 TextColumn::make('status')
                     ->label('Status')
-                    ->searchable(),
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'pending' => 'Menunggu',
+                        'confirmed' => 'Dikonfirmasi',
+                        'completed' => 'Selesai',
+                        default => $state,
+                    })
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'confirmed' => 'info',
+                        'completed' => 'success',
+                        default => 'gray',
+                    }),
                 TextColumn::make('created_at')
                     ->label('Dibuat Pada')
                     ->dateTime()

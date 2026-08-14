@@ -12,6 +12,7 @@ class FinancialReportForm
     public static function configure(Schema $schema): Schema
     {
         return $schema
+            ->columns(1)
             ->components([
                 TextInput::make('period_month')
                     ->label('Bulan Periode')

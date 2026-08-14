@@ -17,7 +17,6 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->text('description')->nullable();
             $table->unsignedBigInteger('target_amount');
-            $table->unsignedBigInteger('collected_amount')->default(0);
             $table->string('cover_photo')->nullable();
             $table->date('starts_at')->nullable();
             $table->date('ends_at')->nullable();

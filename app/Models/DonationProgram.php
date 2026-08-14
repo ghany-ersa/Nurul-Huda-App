@@ -12,8 +12,8 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
 
-#[Fillable(['name', 'slug', 'description', 'target_amount', 'collected_amount', 'cover_photo', 'starts_at', 'ends_at'])]
-#[Appends(['status'])]
+#[Fillable(['name', 'slug', 'description', 'target_amount', 'cover_photo', 'starts_at', 'ends_at'])]
+#[Appends(['collected_amount', 'status'])]
 class DonationProgram extends Model
 {
     /** @use HasFactory<DonationProgramFactory> */
@@ -23,10 +23,16 @@ class DonationProgram extends Model
     {
         return [
             'target_amount' => 'integer',
-            'collected_amount' => 'integer',
             'starts_at' => 'date',
             'ends_at' => 'date',
         ];
+    }
+
+    protected function collectedAmount(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): int => $this->transactions()->sum('amount'),
+        );
     }
 
     protected function status(): Attribute
@@ -34,7 +40,7 @@ class DonationProgram extends Model
         return Attribute::make(
             get: function (mixed $value, array $attributes): string {
                 $hasStarted = $attributes['starts_at'] && Carbon::parse($attributes['starts_at'])->isPast();
-                $isFulfilled = $attributes['collected_amount'] >= $attributes['target_amount'];
+                $isFulfilled = $this->collected_amount >= $attributes['target_amount'];
                 $hasEnded = $attributes['ends_at'] && Carbon::parse($attributes['ends_at'])->isPast();
 
                 if (! $hasStarted) {
