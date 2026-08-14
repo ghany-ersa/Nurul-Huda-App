@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Facilities\Schemas;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\TextInput;
@@ -9,6 +10,8 @@ use Filament\Schemas\Schema;
 
 class FacilityForm
 {
+    use CompressesUploadedImages;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -20,11 +23,13 @@ class FacilityForm
                 RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),
-                FileUpload::make('photo')
-                    ->label('Foto')
-                    ->image()
-                    ->imageEditor()
-                    ->directory('facilities'),
+                self::compressImageUpload(
+                    FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->imageEditor()
+                        ->directory('facilities'),
+                ),
                 TextInput::make('order')
                     ->label('Urutan')
                     ->required()

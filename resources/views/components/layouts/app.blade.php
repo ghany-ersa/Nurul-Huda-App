@@ -10,6 +10,7 @@
     $fullTitle = $title === $siteName ? $title : $title . ' | ' . $siteName;
     $heroImage = asset('images/' . rawurlencode('NH Nabawi.png'));
     $ogImage = $image ?: asset('images/og-image.jpg');
+    $isFallbackOgImage = ! $image;
     $canonical = url()->current();
 @endphp
 
@@ -44,8 +45,10 @@
     <meta property="og:image" content="{{ $ogImage }}">
     <meta property="og:image:secure_url" content="{{ $ogImage }}">
     <meta property="og:image:type" content="image/jpeg">
-    <meta property="og:image:width" content="1200">
-    <meta property="og:image:height" content="654">
+    @if ($isFallbackOgImage)
+        <meta property="og:image:width" content="1200">
+        <meta property="og:image:height" content="654">
+    @endif
     <meta property="og:image:alt" content="{{ $siteName }}">
 
     {{-- Twitter Card --}}

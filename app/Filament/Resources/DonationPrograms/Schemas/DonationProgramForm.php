@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\DonationPrograms\Schemas;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use App\Models\DonationProgram;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
@@ -11,10 +12,11 @@ use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class DonationProgramForm
 {
+    use CompressesUploadedImages;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -50,14 +52,14 @@ class DonationProgramForm
                         $set('target_amount', filled($state) ? number_format((float) str_replace('.', '', $state), thousands_separator: '.') : null);
                     })
                     ->dehydrateStateUsing(fn (?string $state): ?int => filled($state) ? (int) str_replace('.', '', $state) : null),
-                FileUpload::make('cover_photo')
-                    ->label('Foto Sampul')
-                    ->image()
-                    ->imageEditor()
-                    ->directory(fn (Get $get): string => 'donation-programs/'.Str::slug($get('slug')))
-                    ->getUploadedFileNameForStorageUsing(
-                        fn (TemporaryUploadedFile $file): string => 'cover.'.$file->getClientOriginalExtension(),
-                    ),
+                self::compressImageUpload(
+                    FileUpload::make('cover_photo')
+                        ->label('Foto Sampul')
+                        ->image()
+                        ->imageEditor()
+                        ->directory(fn (Get $get): string => 'donation-programs/'.Str::slug($get('slug')))
+                        ->getUploadedFileNameForStorageUsing(fn (): string => 'cover'),
+                ),
                 DatePicker::make('starts_at')
                     ->label('Tanggal Mulai'),
                 DatePicker::make('ends_at')

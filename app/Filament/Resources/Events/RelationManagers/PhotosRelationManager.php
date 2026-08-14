@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Events\RelationManagers;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -17,10 +18,11 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class PhotosRelationManager extends RelationManager
 {
+    use CompressesUploadedImages;
+
     protected static string $relationship = 'photos';
 
     protected static ?string $title = 'Galeri';
@@ -30,19 +32,20 @@ class PhotosRelationManager extends RelationManager
         return $schema
             ->columns(1)
             ->components([
-                FileUpload::make('photo')
-                    ->label('Foto')
-                    ->image()
-                    ->imageEditor()
-                    ->directory(fn (): string => 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos')
-                    ->getUploadedFileNameForStorageUsing(function (Get $get, TemporaryUploadedFile $file): string {
-                        $directory = 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos';
-                        $baseName = Str::slug($get('caption'));
-                        $extension = $file->getClientOriginalExtension();
+                self::compressImageUpload(
+                    FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->imageEditor()
+                        ->directory(fn (): string => 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos')
+                        ->getUploadedFileNameForStorageUsing(function (Get $get): string {
+                            $directory = 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos';
+                            $baseName = Str::slug($get('caption'));
 
-                        return static::uniqueFileName($directory, $baseName, $extension);
-                    })
-                    ->required(),
+                            return static::uniqueFileName($directory, $baseName, 'jpg');
+                        })
+                        ->required(),
+                ),
                 TextInput::make('caption')
                     ->label('Keterangan')
                     ->maxLength(255)

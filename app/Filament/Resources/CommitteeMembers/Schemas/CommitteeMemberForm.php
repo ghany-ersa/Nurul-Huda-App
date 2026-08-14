@@ -2,12 +2,15 @@
 
 namespace App\Filament\Resources\CommitteeMembers\Schemas;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class CommitteeMemberForm
 {
+    use CompressesUploadedImages;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -19,11 +22,13 @@ class CommitteeMemberForm
                 TextInput::make('position')
                     ->label('Jabatan')
                     ->required(),
-                FileUpload::make('photo')
-                    ->label('Foto')
-                    ->image()
-                    ->imageEditor()
-                    ->directory('committee-members'),
+                self::compressImageUpload(
+                    FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->imageEditor()
+                        ->directory('committee-members'),
+                ),
                 TextInput::make('phone')
                     ->label('Nomor Telepon')
                     ->tel(),

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Events\Schemas;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\RichEditor;
@@ -11,10 +12,11 @@ use Filament\Forms\Components\TimePicker;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
-use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class EventForm
 {
+    use CompressesUploadedImages;
+
     public static function configure(Schema $schema): Schema
     {
         return $schema
@@ -48,11 +50,13 @@ class EventForm
                     ->label('Jam'),
                 DatePicker::make('event_date')
                     ->label('Tanggal Acara'),
-                FileUpload::make('poster')
-                    ->label('Poster')
-                    ->image()
-                    ->imageEditor()
-                    ->directory(fn(Get $get): string => 'events/' . Str::slug($get('title'))),
+                self::compressImageUpload(
+                    FileUpload::make('poster')
+                        ->label('Poster')
+                        ->image()
+                        ->imageEditor()
+                        ->directory(fn (Get $get): string => 'events/'.Str::slug($get('title'))),
+                ),
                 RichEditor::make('description')
                     ->label('Deskripsi')
                     ->columnSpanFull(),

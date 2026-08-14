@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Facilities\RelationManagers;
 
+use App\Filament\Concerns\CompressesUploadedImages;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\CreateAction;
 use Filament\Actions\DeleteAction;
@@ -17,6 +18,8 @@ use Filament\Tables\Table;
 
 class PhotosRelationManager extends RelationManager
 {
+    use CompressesUploadedImages;
+
     protected static string $relationship = 'photos';
 
     protected static ?string $title = 'Galeri';
@@ -26,12 +29,14 @@ class PhotosRelationManager extends RelationManager
         return $schema
             ->columns(1)
             ->components([
-                FileUpload::make('photo')
-                    ->label('Foto')
-                    ->image()
-                    ->imageEditor()
-                    ->directory('documentation-photos')
-                    ->required(),
+                self::compressImageUpload(
+                    FileUpload::make('photo')
+                        ->label('Foto')
+                        ->image()
+                        ->imageEditor()
+                        ->directory('documentation-photos')
+                        ->required(),
+                ),
                 TextInput::make('caption')
                     ->label('Keterangan')
                     ->maxLength(255),
