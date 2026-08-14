@@ -29,7 +29,11 @@ class Event extends Model
     protected function posterUrl(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => $this->poster ? Storage::url($this->poster) : null,
+            get: fn (): ?string => match (true) {
+                ! $this->poster => null,
+                str_contains($this->poster, 'https') => $this->poster,
+                default => Storage::url($this->poster),
+            },
         );
     }
 

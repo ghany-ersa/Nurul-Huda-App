@@ -21,7 +21,11 @@ class Facility extends Model
     protected function photoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => $this->photo ? Storage::url($this->photo) : null,
+            get: fn (): ?string => match (true) {
+                ! $this->photo => null,
+                str_contains($this->photo, 'https') => $this->photo,
+                default => Storage::url($this->photo),
+            },
         );
     }
 

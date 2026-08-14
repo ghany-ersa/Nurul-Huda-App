@@ -32,7 +32,11 @@ class DonationProgram extends Model
     protected function coverPhotoUrl(): Attribute
     {
         return Attribute::make(
-            get: fn (): ?string => $this->cover_photo ? Storage::url($this->cover_photo) : null,
+            get: fn (): ?string => match (true) {
+                ! $this->cover_photo => null,
+                str_contains($this->cover_photo, 'https') => $this->cover_photo,
+                default => Storage::url($this->cover_photo),
+            },
         );
     }
 
