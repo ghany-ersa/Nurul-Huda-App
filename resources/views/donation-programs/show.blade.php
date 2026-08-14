@@ -26,7 +26,7 @@
 <x-layouts.app
     :title="$donationProgram->name"
     :description="'Salurkan donasi untuk program ' . $donationProgram->name . ' di Masjid Nurul Huda Ambulu.'"
-    :image="$donationProgram->cover_photo"
+    :image="$donationProgram->cover_photo_url"
     keywords="donasi masjid nurul huda ambulu, {{ $donationProgram->name }}">
 
     <section class="px-5 py-10 max-w-3xl mx-auto">
@@ -39,7 +39,7 @@
 
         @if ($donationProgram->cover_photo)
             <div class="mt-5 aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100">
-                <img src="{{ $donationProgram->cover_photo }}" alt="{{ $donationProgram->name }}"
+                <img src="{{ $donationProgram->cover_photo_url }}" alt="{{ $donationProgram->name }}"
                      class="w-full h-full object-cover" />
             </div>
         @endif
@@ -90,6 +90,17 @@
             @endif
         </div>
 
+         {{-- DOKUMENTASI KEGIATAN --}}
+        @if ($donationProgram->photos->isNotEmpty())
+            <div class="mt-10">
+                <h2 class="text-lg font-bold text-[#2c368B]">Dokumentasi Kegiatan</h2>
+                <x-photo-carousel
+                    :photos="$donationProgram->photos"
+                    :alt-fallback="$donationProgram->name"
+                    class="mt-4" />
+            </div>
+        @endif
+
         {{-- RIWAYAT TRANSAKSI --}}
         <div class="mt-10">
             <h2 class="text-lg font-bold text-[#2c368B]">Riwayat Donasi</h2>
@@ -111,15 +122,6 @@
             @endif
         </div>
 
-        {{-- DOKUMENTASI KEGIATAN --}}
-        @if ($donationProgram->photos->isNotEmpty())
-            <div class="mt-10">
-                <h2 class="text-lg font-bold text-[#2c368B]">Dokumentasi Kegiatan</h2>
-                <x-photo-carousel
-                    :photos="$donationProgram->photos"
-                    :alt-fallback="$donationProgram->name"
-                    class="mt-4" />
-            </div>
-        @endif
+
     </section>
 </x-layouts.app>

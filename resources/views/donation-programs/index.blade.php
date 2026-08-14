@@ -50,7 +50,7 @@
                        class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-slate-100 flex flex-col">
                         @if ($program->cover_photo)
                             <div class="aspect-[16/9] bg-slate-100 overflow-hidden">
-                                <img src="{{ $program->cover_photo }}" alt="{{ $program->name }}" loading="lazy"
+                                <img src="{{ $program->cover_photo_url }}" alt="{{ $program->name }}" loading="lazy"
                                      class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
                             </div>
                         @endif

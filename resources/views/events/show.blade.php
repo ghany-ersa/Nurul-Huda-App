@@ -6,7 +6,7 @@
 <x-layouts.app
     :title="$event->title"
     :description="'Informasi ' . ($isKajian ? 'kajian rutin' : 'event') . ' ' . $event->title . ' di Masjid Nurul Huda Ambulu.'"
-    :image="$event->poster"
+    :image="$event->poster_url"
     keywords="{{ $event->title }}, kajian masjid nurul huda ambulu, event masjid ambulu">
 
     <section class="px-5 py-10 max-w-3xl mx-auto">
@@ -19,7 +19,7 @@
 
         @if ($event->poster)
             <div class="mt-5 aspect-[16/9] rounded-2xl overflow-hidden bg-slate-100">
-                <img src="{{ $event->poster }}" alt="{{ $event->title }}"
+                <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
                      class="w-full h-full object-cover" />
             </div>
         @endif

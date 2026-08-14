@@ -61,7 +61,7 @@
                         <article class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-slate-100 flex flex-col">
                             @if ($facility->photo)
                                 <div class="aspect-[4/3] bg-slate-100 overflow-hidden">
-                                    <img src="{{ $facility->photo }}" alt="{{ $facility->name }}" loading="lazy"
+                                    <img src="{{ $facility->photo_url }}" alt="{{ $facility->name }}" loading="lazy"
                                          class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
                                 </div>
                             @endif
@@ -121,7 +121,7 @@
                        class="bg-white rounded-2xl shadow-sm hover:shadow-md transition overflow-hidden border border-slate-100 flex flex-col">
                         @if ($program->cover_photo)
                             <div class="aspect-[16/9] bg-slate-100 overflow-hidden">
-                                <img src="{{ $program->cover_photo }}" alt="{{ $program->name }}" loading="lazy"
+                                <img src="{{ $program->cover_photo_url }}" alt="{{ $program->name }}" loading="lazy"
                                      class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
                             </div>
                         @endif
@@ -174,7 +174,7 @@
                                 @endif
                             </div>
                             @if ($event->poster)
-                                <img src="{{ $event->poster }}" alt="{{ $event->title }}"
+                                <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
                                      class="w-14 h-20 sm:w-16 sm:h-24 shrink-0 object-cover rounded-lg" loading="lazy" />
                             @endif
                         </a>

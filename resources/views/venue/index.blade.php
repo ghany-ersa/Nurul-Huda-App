@@ -1,5 +1,5 @@
 @php
-    $heroImage = $venue?->photo ?? 'https://picsum.photos/seed/aula-serbaguna-hero/1400/900';
+    $heroImage = $venue?->photo_url ?? 'https://picsum.photos/seed/aula-serbaguna-hero/1400/900';
 
     $fasilitas = [
         ['icon' => 'M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-4a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4 4 4 0 004 4z', 'label' => 'Hingga 150 Tamu'],

@@ -10,10 +10,14 @@ use Filament\Actions\EditAction;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\RelationManagers\RelationManager;
+use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Schema;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class PhotosRelationManager extends RelationManager
 {
@@ -30,11 +34,19 @@ class PhotosRelationManager extends RelationManager
                     ->label('Foto')
                     ->image()
                     ->imageEditor()
-                    ->directory('documentation-photos')
+                    ->directory(fn (): string => 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos')
+                    ->getUploadedFileNameForStorageUsing(function (Get $get, TemporaryUploadedFile $file): string {
+                        $directory = 'events/'.Str::slug($this->getOwnerRecord()->title).'/photos';
+                        $baseName = Str::slug($get('caption'));
+                        $extension = $file->getClientOriginalExtension();
+
+                        return static::uniqueFileName($directory, $baseName, $extension);
+                    })
                     ->required(),
                 TextInput::make('caption')
                     ->label('Keterangan')
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->live(onBlur: true),
                 TextInput::make('order')
                     ->label('Urutan')
                     ->required()
@@ -74,5 +86,18 @@ class PhotosRelationManager extends RelationManager
                     DeleteBulkAction::make(),
                 ]),
             ]);
+    }
+
+    protected static function uniqueFileName(string $directory, string $baseName, string $extension): string
+    {
+        $fileName = "{$baseName}.{$extension}";
+        $suffix = 1;
+
+        while (Storage::exists("{$directory}/{$fileName}")) {
+            $fileName = "{$baseName}-{$suffix}.{$extension}";
+            $suffix++;
+        }
+
+        return $fileName;
     }
 }

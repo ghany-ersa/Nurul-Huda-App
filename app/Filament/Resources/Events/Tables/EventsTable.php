@@ -22,13 +22,28 @@ class EventsTable
                     ->searchable(),
                 TextColumn::make('type')
                     ->label('Jenis')
+                    ->badge()
+                    ->formatStateUsing(fn (string $state): string => match ($state) {
+                        'kajian' => 'Kajian',
+                        'event' => 'Event',
+                        default => $state,
+                    })
                     ->searchable(),
                 TextColumn::make('speaker')
                     ->label('Pengisi')
                     ->searchable(),
                 TextColumn::make('day_of_week')
                     ->label('Hari')
-                    ->numeric()
+                    ->formatStateUsing(fn (?int $state): string => match ($state) {
+                        0 => 'Minggu',
+                        1 => 'Senin',
+                        2 => 'Selasa',
+                        3 => 'Rabu',
+                        4 => 'Kamis',
+                        5 => 'Jumat',
+                        6 => 'Sabtu',
+                        default => '-',
+                    })
                     ->sortable(),
                 TextColumn::make('time')
                     ->label('Jam')

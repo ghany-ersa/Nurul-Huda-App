@@ -10,8 +10,8 @@ use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Components\Utilities\Get;
 use Filament\Schemas\Components\Utilities\Set;
 use Filament\Schemas\Schema;
-use Filament\Support\RawJs;
 use Illuminate\Support\Str;
+use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class DonationProgramForm
 {
@@ -43,15 +43,21 @@ class DonationProgramForm
                 TextInput::make('target_amount')
                     ->label('Target Nominal')
                     ->prefix('Rp')
-                    ->mask(RawJs::make('$money($input, ".")'))
-                    ->stripCharacters('.')
                     ->required()
-                    ->numeric(),
+                    ->live(onBlur: true)
+                    ->formatStateUsing(fn (mixed $state): ?string => filled($state) ? number_format((float) $state, thousands_separator: '.') : null)
+                    ->afterStateUpdated(function (Set $set, ?string $state) {
+                        $set('target_amount', filled($state) ? number_format((float) str_replace('.', '', $state), thousands_separator: '.') : null);
+                    })
+                    ->dehydrateStateUsing(fn (?string $state): ?int => filled($state) ? (int) str_replace('.', '', $state) : null),
                 FileUpload::make('cover_photo')
                     ->label('Foto Sampul')
                     ->image()
                     ->imageEditor()
-                    ->directory('donation-programs'),
+                    ->directory(fn (Get $get): string => 'donation-programs/'.Str::slug($get('slug')))
+                    ->getUploadedFileNameForStorageUsing(
+                        fn (TemporaryUploadedFile $file): string => 'cover.'.$file->getClientOriginalExtension(),
+                    ),
                 DatePicker::make('starts_at')
                     ->label('Tanggal Mulai'),
                 DatePicker::make('ends_at')

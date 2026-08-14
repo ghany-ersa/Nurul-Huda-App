@@ -11,9 +11,10 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 #[Fillable(['name', 'slug', 'description', 'target_amount', 'cover_photo', 'starts_at', 'ends_at'])]
-#[Appends(['collected_amount', 'status'])]
+#[Appends(['collected_amount', 'status', 'cover_photo_url'])]
 class DonationProgram extends Model
 {
     /** @use HasFactory<DonationProgramFactory> */
@@ -26,6 +27,13 @@ class DonationProgram extends Model
             'starts_at' => 'date',
             'ends_at' => 'date',
         ];
+    }
+
+    protected function coverPhotoUrl(): Attribute
+    {
+        return Attribute::make(
+            get: fn (): ?string => $this->cover_photo ? Storage::url($this->cover_photo) : null,
+        );
     }
 
     protected function collectedAmount(): Attribute

@@ -20,7 +20,7 @@
                     <article class="text-center">
                         <div class="aspect-square rounded-2xl bg-slate-100 overflow-hidden shadow-sm">
                             @if ($member->photo)
-                                <img src="{{ $member->photo }}" alt="{{ $member->name }}" loading="lazy"
+                                <img src="{{ $member->photo_url }}" alt="{{ $member->name }}" loading="lazy"
                                      class="w-full h-full object-cover object-center" />
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400">

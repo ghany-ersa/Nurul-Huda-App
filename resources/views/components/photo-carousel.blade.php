@@ -26,7 +26,7 @@
                      x-transition:enter-start="opacity-0"
                      x-transition:enter-end="opacity-100"
                      class="absolute inset-0">
-                    <img src="{{ $photo->photo }}" alt="{{ $photo->caption ?? $altFallback }}"
+                    <img src="{{ $photo->photo_url }}" alt="{{ $photo->caption ?? $altFallback }}"
                          loading="lazy" class="w-full h-full object-cover" />
                     @if ($photo->caption)
                         <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-4 sm:p-6">
