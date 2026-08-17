@@ -25,31 +25,37 @@
                 <div class="mt-4 space-y-3">
                     @foreach ($kajianRutin as $kajian)
                         <a href="{{ route('events.show', $kajian) }}"
-                            class="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
-                            <div
-                                class="w-16 h-16 shrink-0 rounded-xl bg-gradient-to-br from-[#2c368B] to-[#1e79cc] text-white flex flex-col items-center justify-center text-center">
-                                <span
-                                    class="text-xs font-medium leading-tight px-1">{{ $dayNames[$kajian->day_of_week] ?? '-' }}</span>
-                                @if ($kajian->time)
+                            class="block bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-16 h-16 shrink-0 rounded-xl bg-gradient-to-br from-[#2c368B] to-[#1e79cc] text-white flex flex-col items-center justify-center text-center">
                                     <span
-                                        class="text-sm font-bold leading-tight">{{ \Illuminate\Support\Carbon::parse($kajian->time)->format('H:i') }}</span>
-                                @endif
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-slate-900">{{ $kajian->title }}</p>
-                                @if ($kajian->speaker)
-                                    <p class="text-sm text-slate-500">Bersama {{ $kajian->speaker }}</p>
-                                @endif
-                                @if ($kajian->description)
-                                    <div
-                                        class="hidden md:block mt-1 text-sm text-slate-600 [&_p]:mb-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold">
-                                        {!! $kajian->description !!}
-                                    </div>
+                                        class="text-xs font-medium leading-tight px-1">{{ $dayNames[$kajian->day_of_week] ?? '-' }}</span>
+                                    @if ($kajian->time)
+                                        <span
+                                            class="text-sm font-bold leading-tight">{{ \Illuminate\Support\Carbon::parse($kajian->time)->format('H:i') }}</span>
+                                    @endif
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-slate-900">{{ $kajian->title }}</p>
+                                    @if ($kajian->speaker)
+                                        <p class="text-sm text-slate-500">Bersama {{ $kajian->speaker }}</p>
+                                    @endif
+                                </div>
+                                @if ($kajian->poster)
+                                    <img src="{{ $kajian->poster_url }}" alt="{{ $kajian->title }}"
+                                        class="hidden sm:block w-28 h-20 shrink-0 object-cover rounded-lg" loading="lazy" />
                                 @endif
                             </div>
                             @if ($kajian->poster)
                                 <img src="{{ $kajian->poster_url }}" alt="{{ $kajian->title }}"
-                                    class="w-24 h-16 sm:w-28 sm:h-20 shrink-0 object-cover rounded-lg" loading="lazy" />
+                                    class="sm:hidden mt-3 w-full h-40 object-cover rounded-lg" loading="lazy" />
+                            @endif
+                            @if ($kajian->description)
+                                <div
+                                    class="mt-3 text-sm text-slate-600 [&_p]:mb-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold">
+                                    {!! $kajian->description !!}
+                                </div>
                             @endif
                         </a>
                     @endforeach
@@ -67,28 +73,34 @@
                 <div class="mt-4 space-y-3">
                     @foreach ($eventKhusus as $event)
                         <a href="{{ route('events.show', $event) }}"
-                            class="flex items-center gap-4 bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
-                            <div
-                                class="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-[#2c368B] to-[#1e79cc] text-white flex flex-col items-center justify-center">
-                                <span
-                                    class="text-xs font-medium leading-none">{{ $event->event_date->translatedFormat('M') }}</span>
-                                <span
-                                    class="text-lg font-bold leading-tight">{{ $event->event_date->format('d') }}</span>
-                            </div>
-                            <div class="flex-1 min-w-0">
-                                <p class="font-semibold text-slate-900">{{ $event->title }}</p>
-                                <p class="text-xs text-slate-500">{{ $event->event_date->translatedFormat('d F Y') }}
-                                </p>
-                                @if ($event->description)
-                                    <div
-                                        class="mt-1 text-sm text-slate-600 [&_p]:mb-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold">
-                                        {!! $event->description !!}
-                                    </div>
+                            class="block bg-white border border-slate-100 rounded-2xl p-4 shadow-sm hover:shadow-md transition">
+                            <div class="flex items-center gap-4">
+                                <div
+                                    class="w-14 h-14 shrink-0 rounded-xl bg-gradient-to-br from-[#2c368B] to-[#1e79cc] text-white flex flex-col items-center justify-center">
+                                    <span
+                                        class="text-xs font-medium leading-none">{{ $event->event_date->translatedFormat('M') }}</span>
+                                    <span
+                                        class="text-lg font-bold leading-tight">{{ $event->event_date->format('d') }}</span>
+                                </div>
+                                <div class="flex-1 min-w-0">
+                                    <p class="font-semibold text-slate-900">{{ $event->title }}</p>
+                                    <p class="text-xs text-slate-500">
+                                        {{ $event->event_date->translatedFormat('d F Y') }}</p>
+                                </div>
+                                @if ($event->poster)
+                                    <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
+                                        class="hidden sm:block w-28 h-20 shrink-0 object-cover rounded-lg" loading="lazy" />
                                 @endif
                             </div>
                             @if ($event->poster)
                                 <img src="{{ $event->poster_url }}" alt="{{ $event->title }}"
-                                    class="w-24 h-16 sm:w-28 sm:h-20 shrink-0 object-cover rounded-lg" loading="lazy" />
+                                    class="sm:hidden mt-3 w-full h-40 object-cover rounded-lg" loading="lazy" />
+                            @endif
+                            @if ($event->description)
+                                <div
+                                    class="mt-3 text-sm text-slate-600 [&_p]:mb-1 [&_ul]:list-disc [&_ul]:pl-5 [&_ol]:list-decimal [&_ol]:pl-5 [&_strong]:font-semibold">
+                                    {!! $event->description !!}
+                                </div>
                             @endif
                         </a>
                     @endforeach
