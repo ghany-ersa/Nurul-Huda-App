@@ -23,7 +23,7 @@
         @if ($donationPrograms->isEmpty())
             <p class="mt-12 text-center text-slate-500">Belum ada program donasi.</p>
         @else
-            <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6" data-photo-gallery>
+            <div class="mt-10 grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 @foreach ($donationPrograms as $program)
                     @php
                         $percent = $program->target_amount > 0
@@ -51,7 +51,7 @@
                         @if ($program->cover_photo)
                             <div class="aspect-[16/9] bg-slate-100 overflow-hidden">
                                 <img src="{{ $program->cover_photo_url }}" alt="{{ $program->name }}" loading="lazy"
-                                     class="w-full h-full object-cover object-center hover:scale-105 transition duration-500 cursor-zoom-in" />
+                                     class="w-full h-full object-cover object-center hover:scale-105 transition duration-500" />
                             </div>
                         @endif
                         <div class="p-5 flex-1 flex flex-col">
