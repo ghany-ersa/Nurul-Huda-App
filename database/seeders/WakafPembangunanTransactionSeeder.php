@@ -39,14 +39,20 @@ class WakafPembangunanTransactionSeeder extends Seeder
             'donated_at' => '2025-04-30',
         ]);
 
-        foreach ($this->donationRows() as [$date, $donorName, $amount]) {
-            DonationTransaction::create([
-                'donation_program_id' => $program->id,
-                'donor_name' => $donorName,
-                'amount' => $amount,
-                'donated_at' => $date,
-            ]);
-        }
+        $now = now();
+
+        $rows = $this->donationRows()->map(fn (array $row): array => [
+            'donation_program_id' => $program->id,
+            'donor_name' => $row[1],
+            'amount' => $row[2],
+            'donated_at' => $row[0],
+            'created_at' => $now,
+            'updated_at' => $now,
+        ]);
+
+        $rows->chunk(500)->each(
+            fn (Collection $chunk) => DonationTransaction::insert($chunk->all())
+        );
     }
 
     /**
