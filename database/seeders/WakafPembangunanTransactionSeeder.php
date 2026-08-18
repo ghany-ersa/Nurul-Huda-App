@@ -28,6 +28,7 @@ class WakafPembangunanTransactionSeeder extends Seeder
                 'name' => 'Wakaf Pembangunan Masjid',
                 'description' => 'Program wakaf untuk pembangunan dan renovasi fasilitas Masjid Nurul Huda Ambulu, mencakup penutupan sungai/jembatan, pemavingan halaman parkir, teras masjid, dan payung Nabawi.',
                 'target_amount' => 1_175_600_000,
+                'cover_photo' => 'https://pub-f495a446e75645dbb3fb2068e6567042.r2.dev/donation-programs/wakaf-pembangunan-masjid/cover.jpg',
                 'starts_at' => '2025-04-01',
             ]
         );

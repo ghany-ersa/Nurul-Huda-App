@@ -182,6 +182,7 @@ class MasjidContentSeeder extends Seeder
                 'speaker' => $kajian['speaker'],
                 'day_of_week' => $kajian['day_of_week'],
                 'time' => null,
+                'poster' => $kajian['poster'],
                 'event_date' => null,
                 'description' => $kajian['description'],
             ]);
