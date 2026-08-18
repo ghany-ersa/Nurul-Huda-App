@@ -62,9 +62,6 @@ class MasjidContentSeeder extends Seeder
         $members = [
             ['name' => 'Suhartono, S.Pd', 'position' => 'Ketua Takmir'],
             ['name' => 'Tyas Hidayatulloh, S.Pd, M.Pd', 'position' => 'Sekretaris'],
-            ['name' => 'Abdullah Hakim', 'position' => 'Bendahara'],
-            ['name' => 'Umar Syarif', 'position' => 'Anggota'],
-            ['name' => 'Yusuf Hidayat', 'position' => 'Anggota'],
         ];
 
         foreach ($members as $index => $member) {

@@ -19,16 +19,16 @@ class DatabaseSeeder extends Seeder
     {
         // User::factory(10)->create();
 
-        // User::factory()->create([
-        //     'name' => 'Admin User',
-        //     'email' => 'admin@example.com',
-        //     'password' => Hash::make('password'),
-        //     'is_admin' => true,
-        // ]);
+        User::factory()->create([
+            'name' => 'Admin User',
+            'email' => 'admin@nurul-huda.id',
+            'password' => Hash::make('nurulhuda123'),
+            'is_admin' => true,
+        ]);
 
         // Jamaah::factory(10)->create();
 
         $this->call(MasjidContentSeeder::class);
-        // $this->call(WakafPembangunanTransactionSeeder::class);
+        $this->call(WakafPembangunanTransactionSeeder::class);
     }
 }
