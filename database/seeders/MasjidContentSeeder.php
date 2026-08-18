@@ -27,7 +27,7 @@ class MasjidContentSeeder extends Seeder
         $this->seedCommitteeMembers();
         // $this->seedDonationPrograms();
         // $this->seedFinancialReports();
-        // $this->seedEvents();
+        $this->seedEvents();
         // $this->seedVenueInquiries();
         $this->seedGalleryPhotos();
     }
@@ -60,8 +60,8 @@ class MasjidContentSeeder extends Seeder
     private function seedCommitteeMembers(): void
     {
         $members = [
-            ['name' => 'H. Ahmad Fauzi', 'position' => 'Ketua Takmir'],
-            ['name' => 'Muhammad Ridwan', 'position' => 'Sekretaris'],
+            ['name' => 'Suhartono, S.Pd', 'position' => 'Ketua Takmir'],
+            ['name' => 'Tyas Hidayatulloh, S.Pd, M.Pd', 'position' => 'Sekretaris'],
             ['name' => 'Abdullah Hakim', 'position' => 'Bendahara'],
             ['name' => 'Umar Syarif', 'position' => 'Anggota'],
             ['name' => 'Yusuf Hidayat', 'position' => 'Anggota'],
@@ -172,10 +172,10 @@ class MasjidContentSeeder extends Seeder
     private function seedEvents(): void
     {
         $kajianRutin = [
-            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Hadi Santoso', 'day_of_week' => 5, 'description' => '<p>Materi Aqidah Tauhid Kitab Ummul Barahin, Karya Imam Sanusi<br>Diawali salat Maghrib berjamaah</p>'],
-            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Tyas Hidayatulloh, M.Pd', 'day_of_week' => 5, 'description' => '<p>Materi Tafsir Kitab Al Azhar, Karya Buya Hamka<br>Diawali salat Maghrib berjamaah</p>'],
-            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Affan Kamal Mubarok, B.S., M.A.', 'day_of_week' => 5, 'description' => '<p>Materi Shirah Kitab Asy-Syamail Al-Muhammadiyah, Karya Imam Tirmidzi<br>Diawali salat Maghrib berjamaah</p>'],
-            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Nurhadi Amin, S.Ag', 'day_of_week' => 5, 'description' => '<p>Materi Fiqh Kitab Bidayatul Mujtahid, Karya Ibnu Rusyd<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Hadi Santoso', 'day_of_week' => 5, 'poster' => 'https://pub-f495a446e75645dbb3fb2068e6567042.r2.dev/events/kajian-malam-ilmu-iman/01M08259H61EQF563WADR8V0C2.jpg', 'description' => '<p>Materi Aqidah Tauhid Kitab Ummul Barahin, Karya Imam Sanusi<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Tyas Hidayatulloh, M.Pd', 'day_of_week' => 5, 'poster' => 'https://pub-f495a446e75645dbb3fb2068e6567042.r2.dev/events/kajian-malam-ilmu-iman/01M0825TZHZX7YQGYFBRB9TQHF.jpg', 'description' => '<p>Materi Tafsir Kitab Al Azhar, Karya Buya Hamka<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Affan Kamal Mubarok, B.S., M.A.', 'day_of_week' => 5, 'poster' => 'https://pub-f495a446e75645dbb3fb2068e6567042.r2.dev/events/kajian-malam-ilmu-iman/01M0828PZCVCYVYD68218XEYJX.jpg', 'description' => '<p>Materi Shirah Kitab Asy-Syamail Al-Muhammadiyah, Karya Imam Tirmidzi<br>Diawali salat Maghrib berjamaah</p>'],
+            ['title' => 'KAJIAN MALAM ILMU & IMAN', 'speaker' => 'Ust. Nurhadi Amin, S.Ag', 'day_of_week' => 5, 'poster' => 'https://pub-f495a446e75645dbb3fb2068e6567042.r2.dev/events/kajian-malam-ilmu-iman/01M08295CAE327Y0C2JDVN41EY.jpg', 'description' => '<p>Materi Fiqh Kitab Bidayatul Mujtahid, Karya Ibnu Rusyd<br>Diawali salat Maghrib berjamaah</p>'],
         ];
 
         foreach ($kajianRutin as $index => $kajian) {
