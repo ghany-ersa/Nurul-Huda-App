@@ -5,6 +5,7 @@ use App\Models\DonationProgram;
 use App\Models\Event;
 use App\Models\FinancialReport;
 use App\Models\VenueInquiry;
+use App\Models\VenuePage;
 
 use function Pest\Laravel\assertDatabaseHas;
 
@@ -91,10 +92,14 @@ test('event detail page hides photo carousel when no photos', function () {
 });
 
 test('venue page renders successfully', function () {
+    VenuePage::factory()->create();
+
     $this->get(route('venue.index'))->assertOk();
 });
 
 test('venue inquiry submission is stored and redirects to whatsapp', function () {
+    VenuePage::factory()->create(['wa_number' => '6285335104803']);
+
     $response = $this->post(route('venue.store'), [
         'name' => 'Budi Santoso',
         'phone' => '081234567890',

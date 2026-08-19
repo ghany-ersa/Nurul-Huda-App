@@ -1,14 +1,5 @@
 @php
-    $heroImage = $venue?->photo_url ?? 'https://picsum.photos/seed/aula-serbaguna-hero/1400/900';
-
-    $fasilitas = [
-        ['icon' => 'M17 20h5v-2a4 4 0 00-3-3.87M9 20H4v-2a4 4 0 013-3.87m6-4a4 4 0 10-4-4 4 4 0 004 4zm6 0a4 4 0 10-4-4 4 4 0 004 4z', 'label' => 'Hingga 150 Tamu'],
-        ['icon' => 'M8 21h8m-4-4v4M3 5h18M5 5v10a2 2 0 002 2h10a2 2 0 002-2V5', 'label' => 'Pendingin Ruangan'],
-        ['icon' => 'M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2z', 'label' => 'Sound System'],
-        ['icon' => 'M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v12a2 2 0 01-2 2zM3 10h18', 'label' => 'Area Parkir Luas'],
-        ['icon' => 'M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z', 'label' => 'Wudhu Terpisah'],
-        ['icon' => 'M5 13l4 4L19 7', 'label' => 'Suasana Khidmat'],
-    ];
+    $heroImage = $page->photos->first()?->photo_url ?? 'https://picsum.photos/seed/aula-serbaguna-hero/1400/900';
 @endphp
 
 <x-layouts.app
@@ -26,13 +17,13 @@
         <div class="relative w-full px-5 pt-24 pb-14 max-w-3xl mx-auto text-white">
             <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/15 backdrop-blur border border-white/30 text-white text-xs font-medium mb-4">
                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-                Terbuka untuk Pemesanan
+                {{ $page->availability_badge }}
             </div>
             <h1 class="text-3xl sm:text-5xl font-bold leading-tight tracking-tight">
-                Akad Nikah di <span class="text-[#7ec1ee]">Aula Serbaguna</span>
+                {{ $page->hero_title }}
             </h1>
             <p class="mt-3 text-base sm:text-lg text-white/90 max-w-xl">
-                Rayakan momen sakral Anda di tempat yang teduh, penuh berkah, dan siap menampung hingga 150 tamu undangan.
+                {{ $page->hero_subtitle }}
             </p>
             <a href="#ajukan"
                class="mt-6 inline-flex items-center gap-2 bg-white text-[#2c368B] font-semibold py-3 px-6 rounded-xl shadow-lg hover:bg-slate-50 active:scale-[.98] transition">
@@ -47,12 +38,10 @@
     <section class="px-5 py-14 max-w-3xl mx-auto">
         {{-- FASILITAS --}}
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-            @foreach ($fasilitas as $item)
+            @foreach ($page->facilities as $item)
                 <div class="bg-white border border-slate-100 rounded-2xl p-4 shadow-sm text-center">
                     <div class="w-10 h-10 mx-auto rounded-xl bg-[#1e79cc]/10 text-[#1e79cc] flex items-center justify-center">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="{{ $item['icon'] }}" />
-                        </svg>
+                        <x-dynamic-component :component="'heroicon-o-'.$item['icon']" class="w-5 h-5" />
                     </div>
                     <p class="mt-2 text-xs font-medium text-slate-700">{{ $item['label'] }}</p>
                 </div>
@@ -62,22 +51,20 @@
         {{-- DESKRIPSI --}}
         <div class="mt-10">
             <span class="text-[#1e79cc] font-semibold text-sm uppercase tracking-widest">Tentang Venue</span>
-            <h2 class="mt-2 text-2xl font-bold text-[#2c368B]">Aula Serbaguna</h2>
+            <h2 class="mt-2 text-2xl font-bold text-[#2c368B]">{{ $page->description_title }}</h2>
             <p class="mt-3 text-slate-600 leading-relaxed">
-                Aula dengan kapasitas hingga 150 tamu, dilengkapi pendingin ruangan, sound system, area parkir luas,
-                dan tempat wudhu terpisah untuk pria dan wanita. Cocok untuk resepsi akad nikah dalam suasana khidmat,
-                dikelilingi kesejukan lingkungan masjid.
+                {{ $page->description }}
             </p>
         </div>
 
         {{-- GALERI DOKUMENTASI --}}
-        @if ($venue && $venue->photos->isNotEmpty())
+        @if ($page->photos->isNotEmpty())
             <div class="mt-10">
                 <span class="text-[#1e79cc] font-semibold text-sm uppercase tracking-widest">Dokumentasi</span>
-                <h2 class="mt-2 text-2xl font-bold text-[#2c368B]">Suasana Aula Serbaguna</h2>
+                <h2 class="mt-2 text-2xl font-bold text-[#2c368B]">Suasana {{ $page->description_title }}</h2>
                 <x-photo-carousel
-                    :photos="$venue->photos"
-                    alt-fallback="Aula Serbaguna Masjid Nurul Huda"
+                    :photos="$page->photos"
+                    alt-fallback="{{ $page->description_title }} Masjid Nurul Huda"
                     class="mt-4" />
             </div>
         @endif
@@ -88,7 +75,7 @@
                 <path d="M9.983 3v7.391c0 5.704-3.731 9.57-8.983 10.609l-.995-2.151c2.432-.917 3.995-3.638 3.995-5.849h-4v-10h9.983zm14.017 0v7.391c0 5.704-3.748 9.571-9 10.609l-.996-2.151c2.433-.917 3.996-3.638 3.996-5.849h-3.983v-10h9.983z"/>
             </svg>
             <p class="text-base sm:text-lg italic leading-relaxed">
-                "Menikah di rumah Allah adalah awal yang penuh berkah — semoga setiap akad yang berlangsung di sini menjadi fondasi rumah tangga sakinah, mawaddah, wa rahmah."
+                "{{ $page->testimonial }}"
             </p>
         </div>
 

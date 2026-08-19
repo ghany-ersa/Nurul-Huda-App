@@ -11,6 +11,7 @@ use App\Models\Facility;
 use App\Models\FinancialReport;
 use App\Models\GalleryPhoto;
 use App\Models\VenueInquiry;
+use App\Models\VenuePage;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -30,30 +31,34 @@ class MasjidContentSeeder extends Seeder
         $this->seedEvents();
         // $this->seedVenueInquiries();
         $this->seedGalleryPhotos();
+        $this->seedVenuePage();
     }
 
     private function seedFacilities(): void
     {
         $facilities = [
-            ['name' => 'Ruang Sholat Utama', 'description' => 'Ruang sholat utama berkapasitas 500 jamaah dengan pendingin ruangan.'],
-            ['name' => 'Tempat Wudhu', 'description' => 'Tempat wudhu terpisah untuk jamaah pria dan wanita.'],
-            ['name' => 'Perpustakaan', 'description' => 'Koleksi buku-buku islami dan referensi kajian.'],
-            ['name' => 'Ruang TPA', 'description' => 'Ruang belajar mengaji untuk anak-anak.'],
-            ['name' => 'Aula Serbaguna', 'description' => 'Aula untuk kegiatan akad nikah, kajian besar, dan acara masjid.'],
-            ['name' => 'Area Parkir', 'description' => 'Area parkir luas untuk mobil dan motor jamaah.'],
+            ['name' => 'Halaman dan Teras Depan', 'photo' => 'facilities/01M0CQ2ENVEQ1WQYZE5AQM257E.jpg', 'description' => ''],
+            ['name' => 'Parkiran Utama', 'photo' => 'facilities/01M0CQYYDATZX1SYKX2APKBRJK.jpg', 'description' => ''],
+            ['name' => 'Taman dan Kolam Masjid', 'photo' => 'facilities/01M0CQ3E3PVMX3QJS7XZSQH757.jpg', 'description' => ''],
+            ['name' => 'Tempat Jamaah Laki-laki', 'photo' => 'facilities/01M0CQBN9Z92DPB8KC69WCRGA7.jpg', 'description' => ''],
+            ['name' => 'Tempat Jamaah Perempuan', 'photo' => 'facilities/01M0CQCASWABEETW67AYWWZT7W.jpg', 'description' => ''],
+            ['name' => 'Tempat Wudhu Laki-laki (Luar)', 'photo' => 'facilities/01M0CQD8CBYZ8W04MTY14KZ4WS.jpg', 'description' => ''],
+            ['name' => 'Tempat Wudhu Perempuan (depan)', 'photo' => 'facilities/01M0CQET8624HXDET63JPCTWPM.jpg', 'description' => ''],
+            ['name' => 'Tempat Wudhu Laki-laki (Belakang)', 'photo' => 'facilities/01M0CQG09YTAADQE878R8HS78W.jpg', 'description' => ''],
+            ['name' => 'Tempat Wudhu Perempuan (Belakang)', 'photo' => 'facilities/01M0CQGWCMTSMZJS4SD5D7M1X3.jpg', 'description' => ''],
+            ['name' => 'Parkiran Belakang', 'photo' => 'facilities/01M0CQNYNXE3NP5K5NHG5JP3CR.jpg', 'description' => ''],
+            ['name' => 'Ruang Masjid Lantai 2', 'photo' => 'facilities/01M0CQRCJTJA6SK8KBFXWE43GQ.jpg', 'description' => ''],
+            ['name' => 'Perpustakaan Masjid', 'photo' => 'facilities/01M0CQX64RWA3WECA9CM5AMP90.jpg', 'description' => ''],
+            ['name' => 'Alat Sholat', 'photo' => 'facilities/01M0CQYDFZDKQV8J67PK0MKW92.jpg', 'description' => ''],
         ];
 
         foreach ($facilities as $index => $facility) {
-            $facilityModel = Facility::factory()->create([
+            Facility::factory()->create([
                 'name' => $facility['name'],
                 'description' => $facility['description'],
                 'photo' => "https://picsum.photos/seed/facility-{$index}/800/600",
                 'order' => $index,
             ]);
-
-            if ($facility['name'] === 'Aula Serbaguna') {
-                $this->attachDocumentationPhotos($facilityModel, 'aula-serbaguna', 6);
-            }
         }
     }
 
@@ -189,7 +194,7 @@ class MasjidContentSeeder extends Seeder
         }
     }
 
-    private function attachDocumentationPhotos(DonationProgram|Event|Facility $model, string $seedPrefix, int $count): void
+    private function attachDocumentationPhotos(DonationProgram|Event|Facility|VenuePage $model, string $seedPrefix, int $count): void
     {
         foreach (range(0, $count - 1) as $index) {
             DocumentationPhoto::factory()->create([
@@ -223,6 +228,29 @@ class MasjidContentSeeder extends Seeder
             'note' => null,
             'status' => 'completed',
         ]);
+    }
+
+    private function seedVenuePage(): void
+    {
+        $venuePage = VenuePage::factory()->create([
+            'hero_title' => 'Akad Nikah di Aula Serbaguna',
+            'hero_subtitle' => 'Rayakan momen sakral Anda di tempat yang teduh, penuh berkah, dan siap menampung hingga 150 tamu undangan.',
+            'availability_badge' => 'Terbuka untuk Pemesanan',
+            'description_title' => 'Aula Serbaguna',
+            'description' => 'Aula dengan kapasitas hingga 150 tamu, dilengkapi pendingin ruangan, sound system, area parkir luas, dan tempat wudhu terpisah untuk pria dan wanita. Cocok untuk resepsi akad nikah dalam suasana khidmat, dikelilingi kesejukan lingkungan masjid.',
+            'testimonial' => 'Menikah di rumah Allah adalah awal yang penuh berkah — semoga setiap akad yang berlangsung di sini menjadi fondasi rumah tangga sakinah, mawaddah, wa rahmah.',
+            'wa_number' => '6285335104803',
+            'facilities' => [
+                ['icon' => 'user-group', 'label' => 'Hingga 150 Tamu'],
+                ['icon' => 'sun', 'label' => 'Pendingin Ruangan'],
+                ['icon' => 'musical-note', 'label' => 'Sound System'],
+                ['icon' => 'truck', 'label' => 'Area Parkir Luas'],
+                ['icon' => 'sparkles', 'label' => 'Wudhu Terpisah'],
+                ['icon' => 'check-circle', 'label' => 'Suasana Khidmat'],
+            ],
+        ]);
+
+        $this->attachDocumentationPhotos($venuePage, 'aula-serbaguna', 6);
     }
 
     private function seedGalleryPhotos(): void
