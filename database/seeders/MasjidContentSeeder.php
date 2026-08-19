@@ -56,7 +56,7 @@ class MasjidContentSeeder extends Seeder
             Facility::factory()->create([
                 'name' => $facility['name'],
                 'description' => $facility['description'],
-                'photo' => "https://picsum.photos/seed/facility-{$index}/800/600",
+                'photo' =>  $facility['photo'],
                 'order' => $index,
             ]);
         }
