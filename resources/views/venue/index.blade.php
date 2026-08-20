@@ -4,7 +4,7 @@
 
 <x-layouts.app
     title="Akad Venue"
-    description="Sewa Aula Serbaguna Masjid Nurul Huda Ambulu untuk acara akad nikah Anda. Kapasitas 150 tamu, fasilitas lengkap, suasana teduh dan berkah."
+    :description="$page->hero_subtitle"
     :image="$heroImage"
     keywords="sewa venue akad nikah ambulu, aula masjid nurul huda ambulu, tempat akad nikah jember">
 
