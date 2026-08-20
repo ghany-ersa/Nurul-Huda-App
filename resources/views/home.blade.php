@@ -1,15 +1,17 @@
 @php
     $dayNames = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+    $heroImageUrl = rtrim(config('filesystems.disks.r2.url'), '/') . '/venue-page/NH.jpg';
 @endphp
 
 <x-layouts.app
     title="Masjid Nurul Huda Ambulu"
     description="Masjid Nurul Huda Ambulu — pusat ibadah dan kegiatan umat yang transparan dalam pengelolaan dana, aktif dalam kajian, dan terbuka untuk jamaah."
-    keywords="masjid nurul huda ambulu, masjid ambulu, fasilitas masjid, donasi masjid, kajian masjid, suara muhammadiyah ambulu">
+    keywords="masjid nurul huda ambulu, masjid ambulu, fasilitas masjid, donasi masjid, kajian masjid, suara muhammadiyah ambulu"
+    :image="$heroImageUrl">
 
     {{-- HERO --}}
-    <section class="relative min-h-[80svh] flex items-end overflow-hidden">
-        <img src="{{ asset('images/NH Nabawi.png') }}"
+    <section class="relative min-h-[90svh] md:min-h-[80svh] flex items-end overflow-hidden">
+        <img src="{{ $heroImageUrl }}"
              alt="Masjid Nurul Huda Ambulu"
              loading="eager"
              class="absolute inset-0 w-full h-full object-cover" />

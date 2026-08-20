@@ -8,7 +8,7 @@
 @php
     $siteName = 'Masjid Nurul Huda Ambulu';
     $fullTitle = $title === $siteName ? $title : $title . ' | ' . $siteName;
-    $heroImage = asset('images/' . rawurlencode('NH Nabawi.png'));
+    $heroImage = rtrim(config('filesystems.disks.r2.url'), '/') . '/venue-page/NH.jpg';
     $ogImage = $image ?: asset('images/og-image.jpg');
     $isFallbackOgImage = ! $image;
     $canonical = url()->current();
