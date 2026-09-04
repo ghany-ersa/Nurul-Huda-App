@@ -417,6 +417,11 @@ class WakafPembangunanTransactionSeeder extends Seeder
             ['2026-07-31', 'kotak waqaf pembangunan', 1160000],
             ['2026-08-03', 'PRA Sumberan', 300000],
             ['2026-08-07', 'kotak waqaf pembangunan', 1170000],
+            ['2026-08-14', 'kotak waqaf pembangunan', 1000000],
+            ['2026-08-21', 'kotak waqaf pembangunan', 1200000],
+            ['2026-08-22', 'Bapak Sholihin Rohani', 500000],
+            ['2026-08-24', 'Hamba Alloh', 200000],
+            ['2026-08-28', 'kotak waqaf pembangunan', 950000],
         ]);
     }
 }
