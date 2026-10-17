@@ -1,9 +1,9 @@
 @php
-    $goldPricePerGram = 1_500_000;
+    $goldPricePerGram = 2_572_000;
     $nisabGrams = 85;
     $nisabAmount = $goldPricePerGram * $nisabGrams;
     $zakatRate = 0.025;
-    $lazismuWaNumber = '628XXXXXXXXXX';
+    $lazismuWaNumber = '6282164028264';
 @endphp
 
 <x-layouts.app
