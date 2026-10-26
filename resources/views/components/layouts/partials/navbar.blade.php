@@ -5,7 +5,7 @@
         ['label' => 'Donasi', 'route' => 'donation-programs.index'],
         ['label' => 'Laporan Keuangan', 'route' => 'financial-reports.index'],
         ['label' => 'Kajian & Event', 'route' => 'events.index'],
-        ['label' => 'Akad Venue', 'route' => 'venue.index'],
+        ['label' => 'Akad Nikah', 'route' => 'venue.index'],
     ];
 @endphp
 

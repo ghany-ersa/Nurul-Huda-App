@@ -3,7 +3,7 @@
 use App\Models\DocumentationPhoto;
 use App\Models\VenuePage;
 
-test('akad venue page renders content managed by the CMS', function () {
+test('Akad Nikah page renders content managed by the CMS', function () {
     $venuePage = VenuePage::factory()->create([
         'hero_title' => 'Akad Nikah di Aula Serbaguna',
         'availability_badge' => 'Terbuka untuk Pemesanan',
@@ -20,7 +20,7 @@ test('akad venue page renders content managed by the CMS', function () {
         ->assertSee($venuePage->testimonial);
 });
 
-test('akad venue page shows the photo gallery when documentation photos exist', function () {
+test('Akad Nikah page shows the photo gallery when documentation photos exist', function () {
     $venuePage = VenuePage::factory()->create();
     DocumentationPhoto::factory()->create([
         'photoable_type' => VenuePage::class,
@@ -32,7 +32,7 @@ test('akad venue page shows the photo gallery when documentation photos exist', 
         ->assertSee('Dokumentasi');
 });
 
-test('akad venue page hides the photo gallery when no documentation photos exist', function () {
+test('Akad Nikah page hides the photo gallery when no documentation photos exist', function () {
     VenuePage::factory()->create();
 
     $this->get(route('venue.index'))

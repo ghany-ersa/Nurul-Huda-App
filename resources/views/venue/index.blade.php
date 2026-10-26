@@ -3,7 +3,7 @@
 @endphp
 
 <x-layouts.app
-    title="Akad Venue"
+    title="Akad Nikah"
     :description="$page->hero_subtitle"
     :image="$heroImage"
     keywords="sewa venue akad nikah ambulu, aula masjid nurul huda ambulu, tempat akad nikah jember">

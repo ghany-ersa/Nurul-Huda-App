@@ -29,9 +29,9 @@ class ManageVenuePage extends Page
 
     protected static string|UnitEnum|null $navigationGroup = 'Kegiatan & Keuangan';
 
-    protected static ?string $navigationLabel = 'Halaman Akad Venue';
+    protected static ?string $navigationLabel = 'Halaman Akad Nikah';
 
-    protected static ?string $title = 'Halaman Akad Venue';
+    protected static ?string $title = 'Halaman Akad Nikah';
 
     /**
      * @var array<string, mixed>|null

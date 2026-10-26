@@ -34,7 +34,7 @@
                 <li><a href="{{ route('donation-programs.index') }}" class="hover:text-white transition">Donasi</a></li>
                 <li><a href="{{ route('financial-reports.index') }}" class="hover:text-white transition">Laporan Keuangan</a></li>
                 <li><a href="{{ route('events.index') }}" class="hover:text-white transition">Kajian & Event</a></li>
-                <li><a href="{{ route('venue.index') }}" class="hover:text-white transition">Akad Venue</a></li>
+                <li><a href="{{ route('venue.index') }}" class="hover:text-white transition">Akad Nikah</a></li>
             </ul>
         </div>
 
